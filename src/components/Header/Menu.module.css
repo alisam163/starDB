@@ -1,0 +1,9 @@
+.menu {
+  display: inline-flex;
+  justify-content: space-around;
+}
+
+.menu li {
+  list-style-type: none;
+  margin-left: 100px;
+}
