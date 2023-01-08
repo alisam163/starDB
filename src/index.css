@@ -14,3 +14,12 @@ body {
   float: left;
   margin-top: 50px;
 }
+
+.list-group-item span {
+  margin-left: 15px;
+}
+
+.tablePlanet {
+  position: relative;
+  top: 50px;
+}
