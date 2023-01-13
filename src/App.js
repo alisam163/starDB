@@ -25,10 +25,7 @@ class App extends Component {
               <ItemList onItemSelected={this.onSelectedPerson} />
             </div>
             <div className="col-8">
-              <PersonDetail
-                personId={this.state.selectedPerson}
-                loadingItem={false}
-              />
+              <PersonDetail personId={this.state.selectedPerson} />
             </div>
           </div>
         </div>

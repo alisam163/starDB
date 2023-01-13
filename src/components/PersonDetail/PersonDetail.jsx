@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import Spinner from '../Spinner/Spinner'
 import SwapiService from './../../services/SwapiService'
 
 export default class PersonDetail extends Component {
@@ -7,6 +7,7 @@ export default class PersonDetail extends Component {
 
   state = {
     person: null,
+    loadingItem: true,
   }
 
   componentDidMount() {
@@ -15,6 +16,7 @@ export default class PersonDetail extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.personId !== prevProps.personId) {
+      this.setState({ loadingItem: true })
       this.updatePerson()
     }
   }
@@ -26,14 +28,16 @@ export default class PersonDetail extends Component {
     }
     this.swapiService
       .getPerson(personId)
-      .then((person) => this.setState({ person }))
+      .then((person) => this.setState({ person, loadingItem: false }))
   }
 
   render() {
     if (!this.state.person) {
       return <span>Выберите из списка</span>
     }
-
+    if (this.state.loadingItem) {
+      return <Spinner />
+    }
     const { id, name, gender, birthYear, eyeColor } = this.state.person
 
     return (
