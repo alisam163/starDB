@@ -32,9 +32,6 @@ export default class PersonDetail extends Component {
   }
 
   render() {
-    if (!this.state.person) {
-      return <span>Выберите из списка</span>
-    }
     if (this.state.loadingItem) {
       return <Spinner />
     }
