@@ -1,42 +1,34 @@
 import React, { Component } from 'react'
 import ItemList from '../ItemList/ItemList'
-import PersonDetail from '../PersonDetail/PersonDetail'
-import ErrorIndicator from '../ErrorIndicator/ErrorIndicator'
+import ItemDetails from '../ItemDetails/ItemDetails'
+import Row from './../UI/Row/Row'
+import ErrorBoundry from '../ErrorBoundry/ErrorBoundry'
 
 export default class PersonPage extends Component {
   state = {
-    selected: null,
+    selected: 3,
   }
 
   onItemSelectedHandler = (id) => {
-    this.setState({ hasError: false, selected: id })
-  }
-
-  componentDidCatch() {
-    this.setState({ hasError: true })
+    this.setState({ selected: id })
   }
 
   render() {
-    if (this.state.hasError) {
-      return <ErrorIndicator />
-    }
     const { getData } = this.props
+
+    const itemList = (
+      <ItemList getData={getData} onItemSelected={this.onItemSelectedHandler}>
+        {(i) => `${i.name} (${i.birthYear})`}
+      </ItemList>
+    )
+    const personDetails = <ItemDetails personId={this.state.selected} />
+
     return (
-      <div className="container">
-        <div className="row">
-          <div className="col-4">
-            <ItemList
-              getData={getData}
-              onItemSelected={this.onItemSelectedHandler}
-              renderItem={this.props.renderItem}
-            />
-          </div>
-          <div className="col-8">
-            <PersonDetail personId={this.state.selected} />
-          </div>
-        </div>
-        <hr />
-      </div>
+      <>
+        <ErrorBoundry>
+          <Row left={itemList} right={personDetails} />
+        </ErrorBoundry>
+      </>
     )
   }
 }

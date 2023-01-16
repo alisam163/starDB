@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ItemList from '../ItemList/ItemList'
-import PersonDetail from '../PersonDetail/PersonDetail'
+import ItemDetails from '../ItemDetails/ItemDetails'
 
 export default class PlanetPage extends Component {
   state = {
@@ -21,7 +21,7 @@ export default class PlanetPage extends Component {
             />
           </div>
           <div className="col-8">
-            <PersonDetail personId={this.state.selected} />
+            <ItemDetails personId={this.state.selected} />
           </div>
         </div>
         <hr />

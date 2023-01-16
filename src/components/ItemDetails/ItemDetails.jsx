@@ -1,41 +1,48 @@
 import React, { Component } from 'react'
 import Spinner from '../Spinner/Spinner'
-import SwapiService from './../../services/SwapiService'
+import SwapiService from '../../services/SwapiService'
+import ErrorButton from '../ErrorButton/ErrorButton'
+import ErrorIndicator from '../ErrorIndicator/ErrorIndicator'
 
-export default class PersonDetail extends Component {
+export default class ItemDetails extends Component {
   swapiService = new SwapiService()
 
   state = {
-    person: null,
+    item: null,
     loadingItem: true,
+    image: null,
   }
 
   componentDidMount() {
-    this.updatePerson()
+    this.updateItem()
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.personId !== prevProps.personId) {
+    if (this.props.itemId !== prevProps.itemId) {
       this.setState({ loadingItem: true })
-      this.updatePerson()
+      this.updateItem()
     }
   }
 
-  updatePerson = () => {
-    const { personId } = this.props
-    if (!personId) {
-      return
+  updateItem = () => {
+    const { itemId, getData, getImageUrl } = this.props
+    if (!itemId) {
+      return <ErrorIndicator />
     }
-    this.swapiService
-      .getPerson(personId)
-      .then((person) => this.setState({ person, loadingItem: false }))
+    getData(itemId).then((item) =>
+      this.setState({
+        item: item,
+        image: getImageUrl(item),
+        loadingItem: false,
+      })
+    )
   }
 
   render() {
     if (this.state.loadingItem) {
       return <Spinner />
     }
-    const { id, name, gender, birthYear, eyeColor } = this.state.person
+    const { id, name, gender, birthYear, eyeColor } = this.state.item
 
     return (
       <div className="container">
@@ -43,7 +50,7 @@ export default class PersonDetail extends Component {
           <div className="col float-start">
             <img
               className="w-75 m-3"
-              src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
+              src={`${this.state.image}`}
               alt="images not loaded"
             />
           </div>
@@ -65,6 +72,7 @@ export default class PersonDetail extends Component {
             </ul>
           </div>
         </div>
+        <ErrorButton />
       </div>
     )
   }
