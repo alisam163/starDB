@@ -2,33 +2,54 @@ import './App.css'
 import React, { Component } from 'react'
 import Header from './components/Header/Header'
 import RandomPlanet from './components/RandomPlanet/RandomPlanet'
+import SwapiService from './services/SwapiService'
+import PersonPage from './components/PersonPage/PersonPage'
 import ItemList from './components/ItemList/ItemList'
-import PersonDetail from './components/PersonDetail/PersonDetail'
+import ErrorIndicator from './components/ErrorIndicator/ErrorIndicator'
 
 class App extends Component {
+  swapiService = new SwapiService()
+
   state = {
     selectedPerson: null,
+    hasError: false,
   }
 
   onSelectedPerson = (id) => {
     this.setState({ selectedPerson: id })
   }
 
+  componentDidCatch() {
+    this.setState({ hasError: true })
+    debugger
+  }
+
   render() {
+    if (this.state.hasError) {
+      return (
+        <>
+          <ErrorIndicator />
+        </>
+      )
+    }
     return (
       <div className="App">
         <Header />
         <RandomPlanet />
-        <div className="container">
-          <div className="row">
-            <div className="col-4 itemsListGroup">
-              <ItemList onItemSelected={this.onSelectedPerson} />
-            </div>
-            <div className="col-8">
-              <PersonDetail personId={this.state.selectedPerson} />
-            </div>
-          </div>
-        </div>
+        <PersonPage
+          getData={this.swapiService.getAllPeople}
+          renderItem={({ name, gender, birthYear }) =>
+            `${name} (${gender} ${birthYear})`
+          }
+        />
+        <ItemList
+          getData={this.swapiService.getAllPlanets}
+          renderItem={(item) => (
+            <span>
+              {item.name} <button> !</button>
+            </span>
+          )}
+        />
       </div>
     )
   }
