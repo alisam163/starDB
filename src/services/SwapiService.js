@@ -10,7 +10,7 @@ class SwapiService {
     return await res.json()
   }
 
-  getAllPeople = async () => {
+  getAllPerson = async () => {
     const res = await this.getResource(`/people/`)
     return res.results.map(this._transformPerson)
   }
