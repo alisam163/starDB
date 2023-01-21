@@ -44,11 +44,11 @@ class App extends Component {
         <PlanetDetails itemId={5} />
         <StarshipDetails itemId={10} />
         {/* <PersonPage getData={getAllPerson} /> */}
-        <PersonList>{({ name }) => <span>{name}</span>}</PersonList>
+        <PersonList />
 
-        <StarshipList>{({ name }) => <span>{name}</span>}</StarshipList>
+        <StarshipList />
 
-        <PlanetList>{({ name }) => <span>{name}</span>}</PlanetList>
+        <PlanetList />
       </div>
     )
   }
