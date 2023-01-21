@@ -3,7 +3,15 @@ import React, { Component } from 'react'
 import Header from './components/Header/Header'
 import SwapiService from './services/SwapiService'
 import ErrorIndicator from './components/ErrorIndicator/ErrorIndicator'
-import PersonPage from './components/PersonPage/PersonPage'
+
+import {
+  PersonList,
+  PlanetList,
+  StarshipList,
+  PersonDetails,
+  PlanetDetails,
+  StarshipDetails,
+} from './components/sw-components'
 
 class App extends Component {
   swapiService = new SwapiService()
@@ -22,7 +30,6 @@ class App extends Component {
   }
 
   render() {
-    const { getAllPerson } = this.swapiService
     if (this.state.hasError) {
       return (
         <>
@@ -33,7 +40,15 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
-        <PersonPage getData={getAllPerson} />
+        <PersonDetails itemId={10} />
+        <PlanetDetails itemId={5} />
+        <StarshipDetails itemId={10} />
+        {/* <PersonPage getData={getAllPerson} /> */}
+        <PersonList>{({ name }) => <span>{name}</span>}</PersonList>
+
+        <StarshipList>{({ name }) => <span>{name}</span>}</StarshipList>
+
+        <PlanetList>{({ name }) => <span>{name}</span>}</PlanetList>
       </div>
     )
   }
