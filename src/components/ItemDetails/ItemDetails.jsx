@@ -4,6 +4,17 @@ import SwapiService from '../../services/SwapiService'
 import ErrorButton from '../ErrorButton/ErrorButton'
 import ErrorIndicator from '../ErrorIndicator/ErrorIndicator'
 
+const Record = ({ item, field, label }) => {
+  return (
+    <li className="list-group-item">
+      <span className="term">{label} </span>
+      <span>{item[field]}</span>
+    </li>
+  )
+}
+
+export { Record }
+
 export default class ItemDetails extends Component {
   swapiService = new SwapiService()
 
@@ -25,24 +36,23 @@ export default class ItemDetails extends Component {
   }
 
   updateItem = () => {
-    const { itemId, getData, getImageUrl } = this.props
+    const { itemId, getData, getImage } = this.props
     if (!itemId) {
       return <ErrorIndicator />
     }
-    getData(itemId).then((item) =>
+    getData(itemId).then((item) => {
       this.setState({
         item: item,
-        image: getImageUrl(item),
+        image: getImage(item),
         loadingItem: false,
       })
-    )
+    })
   }
 
   render() {
     if (this.state.loadingItem) {
       return <Spinner />
     }
-    const { id, name, gender, birthYear, eyeColor } = this.state.item
 
     return (
       <div className="container">
@@ -55,20 +65,12 @@ export default class ItemDetails extends Component {
             />
           </div>
           <div className="col p-4">
-            <h5 className="text-center">{name}</h5>
+            <h5 className="text-center">{this.state.item.name}</h5>
             <ul className="list-group list-group-flush">
-              <li className="list-group-item">
-                <span>Gender: </span>
-                <span>{gender}</span>
-              </li>
-              <li className="list-group-item">
-                <span>BirthDay: </span>
-                <span>{birthYear}</span>
-              </li>
-              <li className="list-group-item">
-                <span>Eye color: </span>
-                <span>{eyeColor}</span>
-              </li>
+              {React.Children.map(this.props.children, (child) => {
+                const item = this.state.item
+                return React.cloneElement(child, { item })
+              })}
             </ul>
           </div>
         </div>

@@ -22,4 +22,4 @@ const WithData = (View, getData) => {
   }
 }
 
-export default WithData
+export { WithData }
