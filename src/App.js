@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import Header from './components/Header/Header'
 import SwapiService from './services/SwapiService'
 import ErrorIndicator from './components/ErrorIndicator/ErrorIndicator'
+import { SwapiServiceProvider } from './components/swapiServiceContext'
 
 import {
   PersonList,
@@ -38,18 +39,20 @@ class App extends Component {
       )
     }
     return (
-      <div className="App">
-        <Header />
-        <PersonDetails itemId={10} />
-        <PlanetDetails itemId={5} />
-        <StarshipDetails itemId={10} />
-        {/* <PersonPage getData={getAllPerson} /> */}
-        <PersonList />
+      <SwapiServiceProvider value={this.swapiService}>
+        <div className="App">
+          <Header />
+          <PersonDetails itemId={10} />
+          <PlanetDetails itemId={5} />
+          <StarshipDetails itemId={10} />
+          {/* <PersonPage getData={getAllPerson} /> */}
+          <PersonList />
 
-        <StarshipList />
+          <StarshipList />
 
-        <PlanetList />
-      </div>
+          <PlanetList />
+        </div>
+      </SwapiServiceProvider>
     )
   }
 }
