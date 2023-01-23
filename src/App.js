@@ -4,15 +4,11 @@ import Header from './components/Header/Header'
 import SwapiService from './services/SwapiService'
 import ErrorIndicator from './components/ErrorIndicator/ErrorIndicator'
 import { SwapiServiceProvider } from './components/swapiServiceContext'
-
-import {
-  PersonList,
-  PlanetList,
-  StarshipList,
-  PersonDetails,
-  PlanetDetails,
-  StarshipDetails,
-} from './components/sw-components'
+import { PersonList, PlanetList } from './components/sw-components'
+import { StarshipList } from './components/sw-components'
+import PersonDetails from './components/sw-components/PersonDetails'
+import PlanetDetails from './components/sw-components/PlanetDetails'
+import StarshipDetails from './components/sw-components/StarshipDetails'
 
 class App extends Component {
   swapiService = new SwapiService()
@@ -45,7 +41,7 @@ class App extends Component {
           <PersonDetails itemId={10} />
           <PlanetDetails itemId={5} />
           <StarshipDetails itemId={10} />
-          {/* <PersonPage getData={getAllPerson} /> */}
+          {/* List  */}
           <PersonList />
 
           <StarshipList />
