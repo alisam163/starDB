@@ -1,4 +1,4 @@
-class DummySwapyService {
+class DummySwapiService {
   _apiBase = 'https://swapi.dev/api'
   _imageBase = 'https://starwars-visualguide.com/assets/img'
 
@@ -183,4 +183,4 @@ class DummySwapyService {
   }
 }
 
-export default DummySwapyService
+export default DummySwapiService

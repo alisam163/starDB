@@ -4,18 +4,17 @@ import Header from './components/Header/Header'
 import SwapiService from './services/SwapiService'
 import ErrorIndicator from './components/ErrorIndicator/ErrorIndicator'
 import { SwapiServiceProvider } from './components/swapiServiceContext'
-import { PersonList, PlanetList } from './components/sw-components'
-import { StarshipList } from './components/sw-components'
-import PersonDetails from './components/sw-components/PersonDetails'
-import PlanetDetails from './components/sw-components/PlanetDetails'
-import StarshipDetails from './components/sw-components/StarshipDetails'
-import DummySwapyService from './services/DummySwapiService'
+import DummySwapiService from './services/DummySwapiService'
+import RandomPlanet from './components/RandomPlanet/RandomPlanet'
+import { PeoplePage, PlanetPage, StarshipPage } from './components/Pages'
 
 class App extends Component {
   state = {
     selectedPerson: null,
+    selectedPlanet: null,
+    selectedStarships: null,
     hasError: false,
-    swapiService: new DummySwapyService(),
+    swapiService: new SwapiService(),
   }
 
   onSelectedPerson = (id) => {
@@ -29,7 +28,7 @@ class App extends Component {
   onServiceChange = () => {
     this.setState(({ swapiService }) => {
       const Service =
-        swapiService instanceof SwapiService ? DummySwapyService : SwapiService
+        swapiService instanceof SwapiService ? DummySwapiService : SwapiService
 
       console.log('swithed to', Service.name)
 
@@ -47,19 +46,16 @@ class App extends Component {
         </>
       )
     }
+
     return (
       <SwapiServiceProvider value={this.state.swapiService}>
         <div className="App">
           <Header onServiceChange={this.onServiceChange} />
-          <PersonDetails itemId={10} />
-          <PlanetDetails itemId={5} />
-          <StarshipDetails itemId={10} />
-          {/* List  */}
-          <PersonList />
+          <RandomPlanet />
 
-          <StarshipList />
-
-          <PlanetList />
+          <PeoplePage />
+          <PlanetPage />
+          <StarshipPage />
         </div>
       </SwapiServiceProvider>
     )
