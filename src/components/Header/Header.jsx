@@ -1,14 +1,20 @@
 import React, { Component } from 'react'
-import styles from './Header.module.css'
 import Logo from './Logo'
 import Menu from './Menu'
 
 export default class Header extends Component {
   render() {
+    const { onServiceChange } = this.props
     return (
-      <div className={styles.header}>
+      <div className="header">
         <Logo />
         <Menu />
+        <button
+          className="btn btn-primary btn-sm"
+          onClick={() => onServiceChange()}
+        >
+          Change service
+        </button>
       </div>
     )
   }

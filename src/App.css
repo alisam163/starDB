@@ -21,3 +21,8 @@ i {
   transform: rotate(135deg);
   -webkit-transform: rotate(135deg);
 }
+
+.header button {
+  height: 2.2 rem;
+  margin-left: 50px;
+}
