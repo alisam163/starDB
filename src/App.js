@@ -9,13 +9,13 @@ import { StarshipList } from './components/sw-components'
 import PersonDetails from './components/sw-components/PersonDetails'
 import PlanetDetails from './components/sw-components/PlanetDetails'
 import StarshipDetails from './components/sw-components/StarshipDetails'
+import DummySwapyService from './services/DummySwapiService'
 
 class App extends Component {
-  swapiService = new SwapiService()
-
   state = {
     selectedPerson: null,
     hasError: false,
+    swapiService: new DummySwapyService(),
   }
 
   onSelectedPerson = (id) => {
@@ -24,6 +24,19 @@ class App extends Component {
 
   componentDidCatch() {
     this.setState({ hasError: true })
+  }
+
+  onServiceChange = () => {
+    this.setState(({ swapiService }) => {
+      const Service =
+        swapiService instanceof SwapiService ? DummySwapyService : SwapiService
+
+      console.log('swithed to', Service.name)
+
+      return {
+        swapiService: new Service(),
+      }
+    })
   }
 
   render() {
@@ -35,9 +48,9 @@ class App extends Component {
       )
     }
     return (
-      <SwapiServiceProvider value={this.swapiService}>
+      <SwapiServiceProvider value={this.state.swapiService}>
         <div className="App">
-          <Header />
+          <Header onServiceChange={this.onServiceChange} />
           <PersonDetails itemId={10} />
           <PlanetDetails itemId={5} />
           <StarshipDetails itemId={10} />
