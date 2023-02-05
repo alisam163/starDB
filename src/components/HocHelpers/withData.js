@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ErrorIndicator from '../ErrorIndicator/ErrorIndicator'
 import Spinner from '../Spinner/Spinner'
 
-const WithData = (View) => {
+const withData = (View) => {
   return class extends Component {
     state = {
       data: null,
@@ -57,4 +57,4 @@ const WithData = (View) => {
   }
 }
 
-export { WithData }
+export { withData }
