@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 const Row = ({ left, right }) => {
   return (
     <div className="container">
@@ -8,6 +10,11 @@ const Row = ({ left, right }) => {
       <hr />
     </div>
   )
+}
+
+Row.propTypes = {
+  left: PropTypes.node,
+  right: PropTypes.node,
 }
 
 export default Row
