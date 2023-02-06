@@ -53,6 +53,9 @@ export default class ItemDetails extends Component {
   }
 
   render() {
+    if (this.state.item <= 0) {
+      return <p>Выберите из списка</p>
+    }
     if (this.state.loadingItem) {
       return <Spinner />
     }
